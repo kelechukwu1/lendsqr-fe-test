@@ -1,0 +1,254 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.topBar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 14px;
+  padding-right: 14px;
+
+  .backLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $text-color;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: $text-color;
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+
+      button {
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border: 1px solid transparent;
+
+        &.blacklist {
+          color: #e4033b;
+          border-color: #e4033b;
+          &:hover {
+            background: rgba(228, 3, 59, 0.05);
+          }
+        }
+
+        &.activate {
+          color: $secondary-color;
+          border-color: $secondary-color;
+          &:hover {
+            background: rgba($secondary-color, 0.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+.profileCard {
+  background: #fff;
+  border-radius: 4px;
+  padding: 30px 30px 0;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+
+  .mainInfo {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 30px;
+
+    @include tablet {
+      flex-wrap: wrap;
+    }
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(33, 63, 125, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $text-color;
+    }
+
+    .nameSection {
+      h2 {
+        font-size: 22px;
+        color: $text-color;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      p {
+        font-size: 14px;
+        color: $text-color;
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 80px;
+      background: rgba(33, 63, 125, 0.2);
+
+      @include mobile {
+        width: 80px;
+        height: 1px;
+      }
+    }
+
+    .tierSection {
+      p {
+        font-size: 14px;
+        color: $text-color;
+        margin-bottom: 8px;
+      }
+      .stars {
+        display: flex;
+        gap: 4px;
+        color: #e9b200;
+      }
+    }
+
+    .bankSection {
+      h2 {
+        font-size: 22px;
+        color: $text-color;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      p {
+        font-size: 12px;
+        color: $text-color;
+      }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    gap: 40px;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      padding: 10px 0;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 16px;
+      font-weight: 400;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+
+      &.active {
+        color: $secondary-color;
+        border-bottom-color: $secondary-color;
+      }
+    }
+  }
+}
+
+.detailsCard {
+  background: #fff;
+  border-radius: 4px;
+  padding: 30px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+
+  .section {
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: $text-color;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 30px;
+
+      @include tablet {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include mobile {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      &.grid4 {
+        grid-template-columns: repeat(4, 1fr);
+
+        @include tablet {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @include mobile {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .label {
+          font-size: 12px;
+          color: $text-color;
+          text-transform: uppercase;
+        }
+
+        .value {
+          font-size: 16px;
+          color: $text-color;
+          font-weight: 500;
+          word-break: break-word;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+@use "../styles/variables" as *;
+
+.selectContainer {
+  position: relative;
+  display: inline-block;
+  min-width: 80px;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgba(33, 63, 125, 0.1);
+  border: 1px solid rgba(33, 63, 125, 0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: $primary-color;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  gap: 8px;
+
+  &:hover {
+    background-color: rgba(33, 63, 125, 0.15);
+    border-color: rgba(33, 63, 125, 0.3);
+  }
+
+  &:focus {
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 2px rgba($secondary-color, 0.15);
+  }
+
+  .chevron {
+    color: rgba($primary-color, 0.6);
+    transition: transform 0.2s ease;
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.selectContent {
+  position: absolute;
+  left: 0;
+  min-width: 100%;
+  background-color: #fff;
+  border: 1px solid rgba(33, 63, 125, 0.1);
+  border-radius: 6px;
+  z-index: 100;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &.up {
+    bottom: calc(100% + 6px);
+    box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  &.down {
+    top: calc(100% + 6px);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.selectItem {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 14px;
+  color: $text-color;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba($secondary-color, 0.06);
+    color: $primary-color;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.active {
+    background-color: rgba($secondary-color, 0.1);
+    color: $primary-color;
+    font-weight: 600;
+  }
+}

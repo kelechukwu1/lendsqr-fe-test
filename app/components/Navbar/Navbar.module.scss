@@ -1,0 +1,342 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use "sass:color";
+
+.navbar {
+  height: 100px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  @include mobile {
+    padding: 0 20px;
+    height: 80px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+
+    @include tablet {
+      gap: 40px;
+    }
+    @include mobile {
+      gap: 10px;
+    }
+
+    .hamburger {
+      display: none;
+
+      @include mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        color: $primary-color;
+        cursor: pointer;
+        padding: 4px;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+
+    .searchContainer {
+      display: flex;
+      align-items: center;
+      width: 400px;
+
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        width: 300px;
+      }
+
+      input {
+        flex: 1;
+        padding: 12px 20px;
+        border: 1px solid rgba(33, 63, 125, 0.2);
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        outline: none;
+        font-size: 14px;
+        color: $text-color;
+
+        &::placeholder {
+          color: rgba($text-color, 0.7);
+        }
+      }
+
+      button {
+        background-color: $secondary-color;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: color.scale(#39CDCC, $lightness: -5%);
+        }
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    @include mobile {
+      gap: 15px;
+    }
+
+    .docs {
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 16px;
+      text-decoration: underline;
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    .dropdownWrapper {
+      position: relative;
+    }
+
+    .bellButton {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(33, 63, 125, 0.06);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .profileButton {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(33, 63, 125, 0.06);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      .avatar {
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+
+        @include mobile {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .name {
+        color: $primary-color;
+        font-weight: 500;
+        font-size: 16px;
+
+        @include mobile {
+          display: none;
+        }
+      }
+    }
+
+    .notificationDropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 320px;
+      background-color: #fff;
+      border: 1px solid rgba(33, 63, 125, 0.1);
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      z-index: 110;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      @include mobile {
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        left: auto;
+        width: calc(100% - 40px);
+        max-width: 340px;
+      }
+
+      h4 {
+        margin: 0;
+        font-size: 16px;
+        color: $primary-color;
+        border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+        padding-bottom: 8px;
+      }
+
+      .notificationItem {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed rgba(33, 63, 125, 0.05);
+
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .notiText {
+          font-size: 13px;
+          color: $text-color;
+          text-align: left;
+        }
+
+        .notiTime {
+          font-size: 11px;
+          color: rgba($text-color, 0.6);
+          text-align: left;
+        }
+      }
+
+      .clearAll {
+        background: none;
+        border: none;
+        color: $secondary-color;
+        font-size: 12px;
+        cursor: pointer;
+        padding: 5px 0;
+        text-align: center;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .profileDropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 240px;
+      background-color: #fff;
+      border: 1px solid rgba(33, 63, 125, 0.1);
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      z-index: 110;
+      padding: 15px 0;
+      display: flex;
+      flex-direction: column;
+
+      @include mobile {
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        left: auto;
+        width: calc(100% - 40px);
+        max-width: 280px;
+      }
+
+      .profileHeader {
+        padding: 0 15px 12px 15px;
+        border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: left;
+
+        .profileEmail {
+          font-size: 12px;
+          color: rgba($text-color, 0.6);
+        }
+      }
+
+      .menuItem {
+        background: none;
+        border: none;
+        padding: 12px 20px;
+        text-align: left;
+        font-size: 14px;
+        color: $text-color;
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: rgba($secondary-color, 0.06);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &.logoutItem {
+          border-top: 1px solid rgba(33, 63, 125, 0.1);
+          color: #E4033B;
+          margin-top: 8px;
+          padding-top: 12px;
+        }
+      }
+    }
+  }
+}
+
