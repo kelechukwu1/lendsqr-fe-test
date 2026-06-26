@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,9 +18,28 @@ export const Navbar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isOpen: isSidebarOpen, toggleSidebar } = useSidebar();
-  
+
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [userEmail, setUserEmail] = useState("adedeji@lendsqr.com");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("userEmail");
+      if (stored) {
+        setUserEmail(stored);
+      }
+    }
+  }, []);
+
+  const getUsernameFromEmail = (email: string) => {
+    const namePart = email.split("@")[0] || "Adedeji";
+    const formatted = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    if (formatted.length > 10) {
+      return formatted.slice(0, 8) + "...";
+    }
+    return formatted;
+  };
 
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -49,9 +68,9 @@ export const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>
-        <button 
-          type="button" 
-          className={styles.hamburger} 
+        <button
+          type="button"
+          className={styles.hamburger}
           onClick={toggleSidebar}
           aria-label="Toggle sidebar"
         >
@@ -61,9 +80,9 @@ export const Navbar = () => {
           <Icon name="logo" width={145} height={30} />
         </Link>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.searchContainer}>
-          <input 
-            type="text" 
-            placeholder="Search for anything" 
+          <input
+            type="text"
+            placeholder="Search for anything"
             {...register("search")}
           />
           <button type="submit">
@@ -72,7 +91,7 @@ export const Navbar = () => {
         </form>
       </div>
 
-      
+
       <div className={styles.right}>
         <Link href="#" className={styles.docs}>
           Docs
@@ -80,15 +99,15 @@ export const Navbar = () => {
 
         {/* Notifications */}
         <div className={styles.dropdownWrapper}>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className={styles.bellButton}
             onClick={() => { setShowNotifications(!showNotifications); setShowProfile(false); }}
             aria-label="View notifications"
           >
             <Icon name="bell" width={20} height={20} />
           </button>
-          
+
           {showNotifications && (
             <NotificationDropdown onClose={() => setShowNotifications(false)} />
           )}
@@ -96,8 +115,8 @@ export const Navbar = () => {
 
         {/* Profile */}
         <div className={styles.dropdownWrapper}>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className={styles.profileButton}
             onClick={() => { setShowProfile(!showProfile); setShowNotifications(false); }}
           >
@@ -108,12 +127,12 @@ export const Navbar = () => {
               height={48}
               className={styles.avatar}
             />
-            <span className={styles.name}>Adedeji</span>
+            <span className={styles.name}>{getUsernameFromEmail(userEmail)}</span>
             <Icon name="arrow-down" width={10} height={10} />
           </button>
 
           {showProfile && (
-            <ProfileDropdown onClose={() => setShowProfile(false)} />
+            <ProfileDropdown userEmail={userEmail} onClose={() => setShowProfile(false)} />
           )}
         </div>
       </div>

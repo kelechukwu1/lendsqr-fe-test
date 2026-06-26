@@ -150,7 +150,6 @@
       }
     }
 
-
     .submitButton {
       background-color: $secondary-color;
       color: #fff;
@@ -163,10 +162,33 @@
       border: none;
       cursor: pointer;
       transition: background-color 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
 
       &:hover {
         background-color: color.scale(#39CDCC, $lightness: -5%);
       }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+      }
     }
   }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

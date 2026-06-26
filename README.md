@@ -46,6 +46,14 @@ A dashboard application built with Next.js App Router, TypeScript, and SCSS, fea
 
 ---
 
+## 💾 Data Persistence & State
+
+- **Mock Database Persistence**: The user database resides in a static JSON file (`db.json`) located in the Next.js API directory. It acts as the persistent source of truth and is queried via custom mock API route handlers to emulate a real REST endpoint.
+- **Client Caching**: TanStack React Query is configured to cache fetched user directory data in-memory, minimizing redundant API requests and ensuring instantaneous tab switching.
+- **Session State**: Session persistence is handled using browser **`LocalStorage`** to store and retrieve the logged-in user's email address. The layout extracts this value to dynamically display and format the user's name and email in the Navbar and Profile Dropdowns.
+
+---
+
 ## 💻 Getting Started
 
 ### 1. Installation

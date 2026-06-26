@@ -6,14 +6,29 @@ import { useRouter } from "next/navigation";
 import styles from "./login.module.scss";
 import { Icon } from "../../components/Icons";
 
+import { useMutation } from "@tanstack/react-query";
+
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (loginEmail: string) => {
+      await new Promise((resolve) => setTimeout(resolve, 600)); // Simulate API network latency
+      return loginEmail;
+    },
+    onSuccess: (data) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userEmail", data);
+      }
+      router.push("/users");
+    },
+  });
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login and redirect to dashboard
-    router.push("/users");
+    mutate(email);
   };
 
   return (
@@ -32,20 +47,26 @@ export default function LoginPage() {
           />
         </div>
       </div>
-      
+
       <div className={styles.rightSection}>
         <div className={styles.mobileLogo}>
           <Icon name="logo" width={140} height={30} />
         </div>
-        
+
         <h1>Welcome!</h1>
         <p>Enter details to login.</p>
 
         <form onSubmit={handleLogin}>
           <div className={styles.inputGroup}>
-            <input type="email" placeholder="Email" required />
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <input
               type={showPassword ? "text" : "password"}
@@ -65,8 +86,12 @@ export default function LoginPage() {
             Forgot PASSWORD?
           </button>
 
-          <button type="submit" className={styles.submitButton}>
-            LOG IN
+          <button type="submit" className={styles.submitButton} disabled={isPending}>
+            {isPending ? (
+              <span className={styles.spinner} />
+            ) : (
+              "LOG IN"
+            )}
           </button>
         </form>
       </div>
