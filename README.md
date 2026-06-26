@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lendsqr Front-end Assessment
 
-## Getting Started
+A dashboard application built with Next.js App Router, TypeScript, and SCSS, featuring a user directory management console, profile details pages, dynamic status filtering, and query-based search.
 
-First, run the development server:
+---
+
+## 🚀 Key Features Built From Scratch
+
+### 1. User Directory Dashboard
+
+- **Dynamic Table**: A full list of users rendering organization, username, email, phone number, date joined, and status.
+- **Overview Summary Cards**: Four dynamic summary cards reflecting real-time database counts for:
+  - Total Users
+  - Active Users
+  - Users with Loans
+  - Users with Savings
+- **Advanced Filters**: A custom popover component allowing detailed user filtering by Organization, Username, Email, Phone Number, Date Joined, and Status.
+- **Pagination**: Interactive pagination controller supporting custom items-per-page (10, 20, 50, 100) and page navigation.
+- **Organized Sidebar Routing**: Built-in sidebar switcher that updates URL search parameters (`?org=...`) and dynamically loads organization-filtered subsets (including an "All" option to reset filters).
+
+### 2. User Details View
+
+- **Sub-tab Architecture**: Interactive navigation separating details into tab panels:
+  - **General Information**: Personal Info, Education & Employment, Socials, and Guarantor.
+  - **Documents**: Uploaded identity and verification documents.
+  - **Bank & Settlement**: Financial verification details.
+  - **Loans**: Loan history log.
+  - **Savings**: Savings plans and targets.
+  - **System**: Audit logs, device types, and IPs.
+- **Componentized Tab Panels**: Clean modular design utilizing tab-specific subcomponents in [app/components/UserProfileDetails/] for optimal maintainability.
+- **Action Controls**: blacklist and activation buttons with styling custom states.
+
+### 3. Layout & UX Optimizations
+
+- **Popover Visibility Fix**: Improved custom `Select` components with configurable dropdown directionality (`up`/`down`) to prevent vertical clipping within scrollable table container limits.
+- **Responsive Mobile Views**: Adapted table card containers to support horizontal overflows on small screens while ensuring text and controls occupy full viewport width on mobile layouts.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router & Turbopack build engine)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: Vanilla SCSS (Sass modules)
+- **Data Fetching**: [TanStack React Query](https://tanstack.com/query/latest) & [Axios](https://axios-http.com/)
+
+---
+
+## 💻 Getting Started
+
+### 1. Installation
+
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+### 2. Development Server
+
+Run the local next development environment:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to inspect the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Verify typescript and compile optimized production assets:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+```
