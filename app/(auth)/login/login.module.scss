@@ -1,5 +1,5 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 @use "sass:color";
 
 .container {
@@ -16,7 +16,7 @@
   padding: 80px;
   background-color: #fff;
   position: relative;
-  
+
   @include tablet {
     display: none;
   }
@@ -49,7 +49,9 @@
   justify-content: center;
   padding: 80px 100px;
   background-color: #fff;
-  box-shadow: -10px 0 20px rgba(0, 0, 0, 0.02);
+  box-shadow: -10px 0 80px rgba(0, 0, 0, 0.03);
+  position: relative;
+  z-index: 2;
 
   @include mobile {
     padding: 40px 20px;
@@ -74,7 +76,7 @@
   h1 {
     font-size: 40px;
     font-weight: 700;
-    color: #545F7D;
+    color: #545f7d;
     margin-bottom: 10px;
   }
 
@@ -112,7 +114,7 @@
 
         &::placeholder {
           font-size: 14px;
-          color: #545F7D;
+          color: #545f7d;
         }
       }
 
@@ -123,7 +125,7 @@
         transform: translateY(-50%);
         background: none;
         border: none;
-        color: #39CDCC;
+        color: #39cdcc;
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
@@ -134,7 +136,7 @@
 
     .forgotPassword {
       text-align: left;
-      color: #39CDCC;
+      color: #39cdcc;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -168,7 +170,7 @@
       min-height: 48px;
 
       &:hover {
-        background-color: color.scale(#39CDCC, $lightness: -5%);
+        background-color: color.scale(#39cdcc, $lightness: -5%);
       }
 
       &:disabled {
@@ -189,6 +191,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

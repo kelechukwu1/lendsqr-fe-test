@@ -13,6 +13,8 @@ import { fetchUsers, UserFilters } from "@/app/services/users.service";
 import { getPageNumbers } from "@/app/utils/pagination";
 import { formatDate } from "@/app/utils/date";
 import { SummaryCard } from "../../components/SummaryCard";
+import { Loading } from "../../components/Loading";
+import { EmptyState } from "../../components/EmptyState";
 
 function UsersPageContent() {
   const router = useRouter();
@@ -110,153 +112,151 @@ function UsersPageContent() {
 
       <div className={styles.tableContainer}>
         {isLoading ? (
-          <div className={styles.loadingContainer}>
-            <div className={styles.spinner} />
-          </div>
+          <Loading />
+        ) : users.length === 0 ? (
+          <EmptyState />
         ) : (
-          <div className={styles.tableWrapper}>
-            {showFilter && (
-              <FilterPopover
-                onFilter={(newFilters) => setFilters(newFilters)}
-                onReset={() => setFilters({})}
-                onClose={() => setShowFilter(false)}
-                initialFilters={filters}
-              />
-            )}
+          <>
+            <div className={styles.tableWrapper}>
+              {showFilter && (
+                <FilterPopover
+                  onFilter={(newFilters) => setFilters(newFilters)}
+                  onReset={() => setFilters({})}
+                  onClose={() => setShowFilter(false)}
+                  initialFilters={filters}
+                />
+              )}
 
-
-
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Organization <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Username <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Email <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Phone number <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Date joined <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th>
-                    <div className={styles.thContent} onClick={toggleFilter}>
-                      Status <Icon name="filter" width={16} height={16} />
-                    </div>
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.id} onClick={() => handleRowClick(user.id)} className={styles.trHover}>
-                    <td>{user.organization}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phoneNumber}</td>
-                    <td>{formatDate(user.dateJoined)}</td>
-                    <td>
-                      <span className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
-                        {user.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className={styles.actionBtn} onClick={(e) => toggleKebab(e, user.id)}>
-                        <Icon name="kebab" width={20} height={20} />
-                        {activeKebab === user.id && (
-                          <div className={styles.kebabMenu} onClick={(e) => e.stopPropagation()}>
-                            <div className={styles.menuItem} onClick={() => router.push(`/users/${user.id}`)}>
-                              <Icon name="eye" width={16} height={16} /> View Details
-                            </div>
-                            <div className={styles.menuItem}>
-                              <Icon name="user-x" width={16} height={16} /> Blacklist User
-                            </div>
-                            <div className={styles.menuItem}>
-                              <Icon name="user-active" width={16} height={16} /> Activate User
-                            </div>
-                          </div>
-                        )}
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Organization <Icon name="filter" width={16} height={16} />
                       </div>
-                    </td>
+                    </th>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Username <Icon name="filter" width={16} height={16} />
+                      </div>
+                    </th>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Email <Icon name="filter" width={16} height={16} />
+                      </div>
+                    </th>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Phone number <Icon name="filter" width={16} height={16} />
+                      </div>
+                    </th>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Date joined <Icon name="filter" width={16} height={16} />
+                      </div>
+                    </th>
+                    <th>
+                      <div className={styles.thContent} onClick={toggleFilter}>
+                        Status <Icon name="filter" width={16} height={16} />
+                      </div>
+                    </th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {!isLoading && (
-          <div className={styles.pagination}>
-            <div className={styles.info}>
-              Showing
-              <Select
-                value={limit}
-                onChange={(val) => {
-                  setLimit(Number(val));
-                  setPage(1);
-                }}
-                options={[
-                  { value: 10, label: 10 },
-                  { value: 20, label: 20 },
-                  { value: 50, label: 50 },
-                  { value: 100, label: 100 },
-                ]}
-                direction="up"
-              />
-              out of {total}
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} onClick={() => handleRowClick(user.id)} className={styles.trHover}>
+                      <td>{user.organization}</td>
+                      <td>{user.username}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phoneNumber}</td>
+                      <td>{formatDate(user.dateJoined)}</td>
+                      <td>
+                        <span className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
+                          {user.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className={styles.actionBtn} onClick={(e) => toggleKebab(e, user.id)}>
+                          <Icon name="kebab" width={20} height={20} />
+                          {activeKebab === user.id && (
+                            <div className={styles.kebabMenu} onClick={(e) => e.stopPropagation()}>
+                              <div className={styles.menuItem} onClick={() => router.push(`/users/${user.id}`)}>
+                                <Icon name="eye" width={16} height={16} /> View Details
+                              </div>
+                              <div className={styles.menuItem}>
+                                <Icon name="user-x" width={16} height={16} /> Blacklist User
+                              </div>
+                              <div className={styles.menuItem}>
+                                <Icon name="user-active" width={16} height={16} /> Activate User
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
-            <div className={styles.controls}>
-              <button
-                type="button"
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className={styles.pageArrow}
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <div className={styles.pageNumbers}>
-                {pageNumbers.map((p, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className={`${styles.pageNumber} ${p === page ? styles.active : ""} ${p === "..." ? styles.ellipsis : ""}`}
-                    onClick={() => {
-                      if (typeof p === "number") {
-                        setPage(p);
-                      }
-                    }}
-                    disabled={p === "..."}
-                  >
-                    {p}
-                  </button>
-                ))}
+            <div className={styles.pagination}>
+              <div className={styles.info}>
+                Showing
+                <Select
+                  value={limit}
+                  onChange={(val) => {
+                    setLimit(Number(val));
+                    setPage(1);
+                  }}
+                  options={[
+                    { value: 10, label: 10 },
+                    { value: 20, label: 20 },
+                    { value: 50, label: 50 },
+                    { value: 100, label: 100 },
+                  ]}
+                  direction="up"
+                />
+                out of {total}
               </div>
-              <button
-                type="button"
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className={styles.pageArrow}
-              >
-                <ChevronRight size={16} />
-              </button>
+
+              <div className={styles.controls}>
+                <button
+                  type="button"
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className={styles.pageArrow}
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <div className={styles.pageNumbers}>
+                  {pageNumbers.map((p, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`${styles.pageNumber} ${p === page ? styles.active : ""} ${p === "..." ? styles.ellipsis : ""}`}
+                      onClick={() => {
+                        if (typeof p === "number") {
+                          setPage(p);
+                        }
+                      }}
+                      disabled={p === "..."}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className={styles.pageArrow}
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>

@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import styles from "./userDetails.module.scss";
 import { Icon } from "../../../components/Icons";
 import { fetchUser } from "@/app/services/users.service";
+import { Loading } from "../../../components/Loading";
 
 import { UserProfileHeader } from "../../../components/UserProfileHeader";
 import { UserProfileDetails } from "../../../components/UserProfileDetails";
@@ -21,7 +22,7 @@ export default function UserDetailsPage() {
     queryFn: () => fetchUser(id),
   });
 
-  if (isLoading) return <div>Loading user details...</div>;
+  if (isLoading) return <Loading />;
   if (error || !user) return <div>Failed to load user.</div>;
 
   return (
